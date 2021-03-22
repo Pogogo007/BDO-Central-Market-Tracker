@@ -20,11 +20,9 @@ jobs:
     - name: zip
       uses: papeloto/action-zip@v1
       with:
-        files: |
-          $GITHUB_WORKSPACE/dist/main.exe
-          $GITHUB_WORKSPACE/src/settings.yaml
+        files: dist/
         recursive: false
-        dest: dist/CentralMarketTracker.zip
+        dest: CentralMarketTracker.zip
     - name: "Release"
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -32,5 +30,4 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: false
         title: "Latest Release"
-        files: |
-          $GITHUB_WORKSPACE/dist/CentralMarketTracker.zip
+        files: ${{ github.workspace }}CentralMarketTracker.zip
