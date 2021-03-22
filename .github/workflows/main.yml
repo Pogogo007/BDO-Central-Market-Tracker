@@ -22,7 +22,7 @@ jobs:
       uses: papeloto/action-zip@v1
       with:
         files: dist\main.exe src\settings.yaml
-        recursive: false
+        recursive: true
         dest: CentralMarketTracker.zip
     - name: "Release"
       uses: "marvinpinto/action-automatic-releases@latest"
