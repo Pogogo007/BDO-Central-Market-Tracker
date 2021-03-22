@@ -4,8 +4,16 @@ import requests
 import time
 import yaml
 import sys
+from datetime import datetime
 
-pprint("Starting Up")
+old_print = print
+def timestamped_print(*args, **kwargs):
+    timeObj = datetime.now().time()
+    time = ''.join((str(timeObj.hour),':',str(timeObj.minute),':',str(timeObj.second)))
+    old_print(time, *args, **kwargs)
+
+print = timestamped_print
+print("Starting Up")
 startup = True
 config = yaml.safe_load(open('settings.yaml', 'r'))
 itemIDS = config['itemids']
@@ -21,12 +29,12 @@ if region == 'NA':
 elif region == 'EU':
     LINK = "https://eu-trade.naeu.playblackdesert.com/Home/GetWorldMarketSubList"
 else:
-    pprint("Wrong Region. Use EU or NA. Press Enter To Exit")
+    print("Wrong Region. Use EU or NA. Press Enter To Exit")
     input()
     exit()
 
 if headerToken == None or formToken == None:
-    pprint("You Have not set your Header Token Or Form Token. Press Enter To Exit")
+    print("You Have not set your Header Token Or Form Token. Press Enter To Exit")
     input()
     exit()
 
@@ -40,7 +48,7 @@ def progressBar(value, endvalue, bar_length=20):
         sys.stdout.flush()
         
 def updateTradeCount():
-    pprint("Checking For New Trades...")
+    print("Checking For New Trades...")
     i = 0
     max = len(itemIDS)
     new = False
@@ -56,7 +64,7 @@ def updateTradeCount():
         info = json.loads(page.content)
         content = info.get('detailList')
         if content == []:
-            pprint("Something Went Horribly Wrong or the server did not answer. Exiting")
+            print("Something Went Horribly Wrong or the server did not answer. Exiting")
             exit()
         else:
             details = content[0]
@@ -67,18 +75,17 @@ def updateTradeCount():
             else:
                 difference = newTrades - currentIDTr
                 currentTrades[id] = newTrades
-                pprint("{} new trades detected for {} within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades))
+                print("{} new trades detected for {} within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades))
                 #pprint("New Amount Of Total Trades at {}".format(newTrades))
                 new = True
                 time.sleep(0.5)
     if(new == False):
-        pprint("No New Trades Found Within The Last {} Seconds".format(timer))
+        print("No New Trades Found Within The Last {} Seconds".format(timer))
         
         
 for id in itemIDS:
     currentTrades[id] = 0
 
-pprint("Startup Done")
 if startup == True:
     for id in itemIDS:
         cookies = {"__RequestVerificationToken": headerToken}
@@ -88,18 +95,19 @@ if startup == True:
         info = json.loads(page.content)
         content = info.get('detailList')
         if content == []:
-            pprint("{} Is An Invalid ID. Please Change It. Press Enter to Exit.".format(id))
+            print("{} Is An Invalid ID. Please Change It. Press Enter to Exit.".format(id))
             input()
             exit()
         else:
             details = content[0]
-            pprint("Monitoring Started for {}".format(details['name']))
-            pprint("Amount Of Total Trades {}".format(details['totalTradeCount']))
+            print("Monitoring Started for {}".format(details['name']))
+            print("Amount Of Total Trades {}".format(details['totalTradeCount']))
             currentTrades[id] = details['totalTradeCount']
             time.sleep(0.5)
     startup = False
-        
-print("press ctrl-c to stop")
+    print("Startup Done")
+    
+print("Press Ctrl-C to Stop at Any Time")
 loop_forever = True
 while loop_forever:
     updateTradeCount()
@@ -107,4 +115,4 @@ while loop_forever:
         time.sleep(timer)
     except KeyboardInterrupt:
         loop_forever = False
-        pprint("Keyboard Interupt Triggered Exiting...")
+        print("Keyboard Interupt Triggered Exiting...")
