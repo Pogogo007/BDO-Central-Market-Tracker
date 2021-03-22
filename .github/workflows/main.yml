@@ -18,6 +18,7 @@ jobs:
         pyinstaller -c -F src\main.py
 
   zip-files:
+    needs: build
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,6 +30,7 @@ jobs:
           dest: CentralMarketTracker.zip
 
   release:
+    needs: zip-files
     runs-on: windows-latest
     name: Latest Release
     steps:
