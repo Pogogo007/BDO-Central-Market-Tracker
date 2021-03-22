@@ -15,14 +15,13 @@ jobs:
     - name: build with pyinstaller
       run: |
         pipenv install
-        pipenv shell
         pyinstaller -c -F src\main.py
     - name: zip
       uses: papeloto/action-zip@v1
       with:
-        files: dist/
+        files: ${{ github.workspace }}/dist/main.exe ${{ github.workspace }}/src/settings.yaml
         recursive: false
-        dest: CentralMarketTracker.zip
+        dest: ${{ github.workspace }}/CentralMarketTracker.zip
     - name: "Release"
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
