@@ -17,10 +17,11 @@ jobs:
         pipenv install
         pyinstaller -c -F src\main.py
         dir
+        dir dist\
     - name: zip
       uses: papeloto/action-zip@v1
       with:
-        files: ${{ github.workspace }}\dist\main.exe ${{ github.workspace }}\src\settings.yaml
+        files: dist\main.exe src\settings.yaml
         recursive: false
         dest: CentralMarketTracker.zip
     - name: "Release"
