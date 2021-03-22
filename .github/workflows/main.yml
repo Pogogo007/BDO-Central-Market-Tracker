@@ -19,18 +19,18 @@ jobs:
         pyinstaller -c -F src\main.py
     - uses: papeloto/action-zip@v1
     - name: zip
-        with:
-          files: |
-            dist\main.exe
-            src\settings.yaml
-          recursive: false
-          dest: dist\CentralMarketTracker.zip
+      with:
+        files: |
+          dist\main.exe
+          src\settings.yaml
+        recursive: false
+        dest: dist\CentralMarketTracker.zip
     - name: "Release"
     - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: false
-          title: "Latest Release"
-          files: |
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: false
+        title: "Latest Release"
+        files: |
             dist\CentralMarketTracker.zip
