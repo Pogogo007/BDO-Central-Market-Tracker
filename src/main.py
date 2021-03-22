@@ -7,15 +7,15 @@ import sys
 from datetime import datetime
 
 class colors:
-    black = "\u001b[30m"
-    red = "\u001b[31m"
-    green = "\u001b[32m"
-    yellow = "\u001b[33m"
-    blue = "\u001b[34m"
-    magenta = "\u001b[35m"
-    cyan = "\u001b[36m"
-    white = "\u001b[37m"
-    reset = "\u001b[0m"
+    black = "Esc[30m"
+    red = "Esc[31m"
+    green = "Esc[32m"
+    yellow = "Esc[33m"
+    blue = "Esc[34m"
+    magenta = "Esc[35m"
+    cyan = "Esc[36m"
+    white = "Esc[37m"
+    reset = "Esc[0m"
     
 old_print = print
 def timestamped_print(*args, **kwargs):
@@ -86,7 +86,7 @@ def updateTradeCount():
             else:
                 difference = newTrades - currentIDTr
                 currentTrades[id] = newTrades
-                print(colors.green + "\u001b[34m{}\u001b[32m new trades detected for \u001b[34m{}\u001b[32m within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades) + colors.reset)
+                print(colors.green + "Esc[34m{}Esc[32m new trades detected for Esc[34m{}Esc[32m within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades) + colors.reset)
                 #pprint("New Amount Of Total Trades at {}".format(newTrades))
                 new = True
                 time.sleep(0.5)
