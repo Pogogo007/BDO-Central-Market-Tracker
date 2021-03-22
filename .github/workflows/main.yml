@@ -16,6 +16,7 @@ jobs:
       run: |
         pipenv install
         pyinstaller -c -F src\main.py
+        dir
     - name: zip
       uses: papeloto/action-zip@v1
       with:
