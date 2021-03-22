@@ -1,0 +1,45 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Python
+      uses: actions/setup-python@v1
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+        pip install pipenv
+    - name: build with pyinstaller
+      run: |
+        pipenv install
+        pyinstaller -c -F src\main.py
+
+  zip-files:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: papeloto/action-zip@v1
+        with:
+          files: |
+            dist\main.exe
+            \settings.yaml
+          dest: CentralMarketTracker.zip
+
+  release:
+    runs-on: windows-latest
+    name: Latest Release
+    steps:
+      - name: "Build and Release"
+        run: |
+          echo "done!"
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: "Latest Release"
+          files: |
+            \CentralMarketTracker.zip
