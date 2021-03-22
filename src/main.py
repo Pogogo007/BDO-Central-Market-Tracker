@@ -6,14 +6,25 @@ import yaml
 import sys
 from datetime import datetime
 
+class colors:
+    black = "\u001b[30m"
+    red = "\u001b[31m"
+    green = "\u001b[32m"
+    yellow = "\u001b[33m"
+    blue = "\u001b[34m"
+    magenta = "\u001b[35m"
+    cyan = "\u001b[36m"
+    white = "\u001b[37m"
+    reset = "\u001b[0m"
+    
 old_print = print
 def timestamped_print(*args, **kwargs):
     timeObj = datetime.now().time()
     time = ''.join((str(timeObj.hour),':',str(timeObj.minute),':',str(timeObj.second)))
-    old_print(time, *args, **kwargs)
+    old_print(colors.magenta + time + colors.reset, *args, **kwargs)
 
 print = timestamped_print
-print("Starting Up")
+print(colors.yellow + "Starting Up" + colors.reset)
 startup = True
 config = yaml.safe_load(open('settings.yaml', 'r'))
 itemIDS = config['itemids']
@@ -29,12 +40,12 @@ if region == 'NA':
 elif region == 'EU':
     LINK = "https://eu-trade.naeu.playblackdesert.com/Home/GetWorldMarketSubList"
 else:
-    print("Wrong Region. Use EU or NA. Press Enter To Exit")
+    print(colors.red + "Wrong Region. Use EU or NA. Press Enter To Exit" + colors.reset)
     input()
     exit()
 
 if headerToken == None or formToken == None:
-    print("You Have not set your Header Token Or Form Token. Press Enter To Exit")
+    print(colors.red + "You Have not set your Header Token Or Form Token. Press Enter To Exit" + colors.reset)
     input()
     exit()
 
@@ -44,11 +55,11 @@ def progressBar(value, endvalue, bar_length=20):
         arrow = '-' * int(round(percent * bar_length)-1) + '>'
         spaces = ' ' * (bar_length - len(arrow))
 
-        sys.stdout.write("\rPercent: [{0}] {1}%\r".format(arrow + spaces, int(round(percent * 100))))
+        sys.stdout.write(colors.magenta + "\rPercent: [{0}] {1}%\r".format(arrow + spaces, int(round(percent * 100))) + colors.reset)
         sys.stdout.flush()
         
 def updateTradeCount():
-    print("Checking For New Trades...")
+    print(colors.yellow + "Checking For New Trades..." + colors.reset)
     i = 0
     max = len(itemIDS)
     new = False
@@ -64,7 +75,7 @@ def updateTradeCount():
         info = json.loads(page.content)
         content = info.get('detailList')
         if content == []:
-            print("Something Went Horribly Wrong or the server did not answer. Exiting")
+            print(colors.red + "Something Went Horribly Wrong or the server did not answer. Exiting" + colors.reset)
             exit()
         else:
             details = content[0]
@@ -75,12 +86,12 @@ def updateTradeCount():
             else:
                 difference = newTrades - currentIDTr
                 currentTrades[id] = newTrades
-                print("{} new trades detected for {} within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades))
+                print(colors.green + "\u001b[34m{}\u001b[32m new trades detected for \u001b[34m{}\u001b[32m within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades) + colors.reset)
                 #pprint("New Amount Of Total Trades at {}".format(newTrades))
                 new = True
                 time.sleep(0.5)
     if(new == False):
-        print("No New Trades Found Within The Last {} Seconds".format(timer))
+        print(colors.red + "No New Trades Found Within The Last {} Seconds".format(timer) + colors.reset)
         
         
 for id in itemIDS:
@@ -95,19 +106,20 @@ if startup == True:
         info = json.loads(page.content)
         content = info.get('detailList')
         if content == []:
-            print("{} Is An Invalid ID. Please Change It. Press Enter to Exit.".format(id))
+            print(colors.red + "{} Is An Invalid ID. Please Change It. Press Enter to Exit.".format(id) + colors.reset)
             input()
             exit()
         else:
             details = content[0]
-            print("Monitoring Started for {}".format(details['name']))
-            print("Amount Of Total Trades {}".format(details['totalTradeCount']))
+            print(colors.green + "Monitoring Started for {}".format(details['name']) + colors.reset)
+            print(colors.green + "Amount Of Total Trades {}".format(details['totalTradeCount']) + colors.reset)
             currentTrades[id] = details['totalTradeCount']
             time.sleep(0.5)
     startup = False
-    print("Startup Done")
+    print(colors.yellow + "Startup Done" + colors.reset)
     
-print("Press Ctrl-C to Stop at Any Time")
+print(colors.cyan + "Press Ctrl-C to Stop at Any Time" + colors.reset)
+
 loop_forever = True
 while loop_forever:
     updateTradeCount()
