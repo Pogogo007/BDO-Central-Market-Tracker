@@ -17,8 +17,8 @@ jobs:
         pipenv install
         pipenv shell
         pyinstaller -c -F src\main.py
-    - uses: papeloto/action-zip@v1
     - name: zip
+      uses: papeloto/action-zip@v1
       with:
         files: |
           dist\main.exe
@@ -26,7 +26,7 @@ jobs:
         recursive: false
         dest: dist\CentralMarketTracker.zip
     - name: "Release"
-    - uses: "marvinpinto/action-automatic-releases@latest"
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
