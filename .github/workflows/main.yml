@@ -15,30 +15,18 @@ jobs:
     - name: build with pyinstaller
       run: |
         pipenv install
-        pipenv run
+        pipenv shell
         pyinstaller -c -F src\main.py
-
-  zip-files:
-    needs: build
-    runs-on: windows-latest
-    steps:
-      - uses: papeloto/action-zip@v1
+    - uses: papeloto/action-zip@v1
+    - name: zip
         with:
           files: |
             dist\main.exe
             src\settings.yaml
           recursive: false
           dest: dist\CentralMarketTracker.zip
-
-  release:
-    needs: zip-files
-    runs-on: windows-latest
-    name: Latest Release
-    steps:
-      - name: "Build and Release"
-        run: |
-          echo "done!"
-      - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: "Release"
+    - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
