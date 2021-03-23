@@ -17,7 +17,7 @@ jobs:
     - name: build with pyinstaller
       run: |
         pipenv install --system
-        pyinstaller -c -F src\main.py
+        pyinstaller -F src\main.py
         dir
         dir dist\
     - name: zip
