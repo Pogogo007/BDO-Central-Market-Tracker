@@ -23,7 +23,7 @@ jobs:
     - name: build with pyinstaller
       run: |
         pipenv install --system
-        pyinstaller -F src\main.py
+        pyinstaller -F --icon=icon.ico src\main.py
         dir
         dir dist\
     - name: zip
