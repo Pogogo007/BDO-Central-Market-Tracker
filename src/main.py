@@ -5,6 +5,9 @@ import time
 import yaml
 import sys
 from datetime import datetime
+from colorama import init
+init()
+
 
 class colors:
     black = "\033[30m"
@@ -22,8 +25,9 @@ def timestamped_print(*args, **kwargs):
     timeObj = datetime.now().time()
     time = ''.join((str(timeObj.hour),':',str(timeObj.minute),':',str(timeObj.second)))
     old_print(colors.magenta + time + colors.reset, *args, **kwargs)
-
 print = timestamped_print
+
+
 print(colors.yellow + "Starting Up" + colors.reset)
 startup = True
 config = yaml.safe_load(open('settings.yaml', 'r'))
