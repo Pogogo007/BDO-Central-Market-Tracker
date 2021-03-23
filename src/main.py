@@ -59,7 +59,7 @@ def progressBar(value, endvalue, bar_length=20):
         arrow = '-' * int(round(percent * bar_length)-1) + '>'
         spaces = ' ' * (bar_length - len(arrow))
 
-        sys.stdout.write(colors.magenta + "\rPercent: [{0}] {1}%\r".format(arrow + spaces, int(round(percent * 100))) + colors.reset)
+        sys.stdout.write(colors.yellow + "\rPercent: [{0}] {1}%\r".format(arrow + spaces, int(round(percent * 100))) + colors.reset)
         sys.stdout.flush()
         
 def updateTradeCount():
