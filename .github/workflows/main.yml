@@ -18,6 +18,7 @@ jobs:
         git clone https://github.com/pyinstaller/pyinstaller
         cd pyinstaller\bootloader
         python3 ./waf distclean all
+        cd ..
         python3 setup.py install
     - name: build with pyinstaller
       run: |
