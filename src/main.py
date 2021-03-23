@@ -86,14 +86,14 @@ def updateTradeCount():
             newTrades = details['totalTradeCount']
             if newTrades == currentIDTr:
                 #pprint("No New Trades Detected For {} Within the last {} seconds".format(details['name'], timer))
-                time.sleep(0.5)
+                time.sleep(0.2)
             else:
                 difference = newTrades - currentIDTr
                 currentTrades[id] = newTrades
                 print(colors.green + "\033[36m{}\033[32m new trades detected for \033[36m{}\033[32m within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades) + colors.reset)
                 #pprint("New Amount Of Total Trades at {}".format(newTrades))
                 new = True
-                time.sleep(0.5)
+                time.sleep(0.2)
     if(new == False):
         print(colors.red + "No New Trades Found Within The Last {} Seconds".format(timer) + colors.reset)
         
@@ -118,7 +118,7 @@ if startup == True:
             print(colors.green + "Monitoring Started for {}".format(details['name']) + colors.reset)
             print(colors.green + "Amount Of Total Trades {}".format(details['totalTradeCount']) + colors.reset)
             currentTrades[id] = details['totalTradeCount']
-            time.sleep(0.5)
+            time.sleep(0.2)
     startup = False
     print(colors.yellow + "Startup Done" + colors.reset)
     
