@@ -90,7 +90,7 @@ def updateTradeCount():
             else:
                 difference = newTrades - currentIDTr
                 currentTrades[id] = newTrades
-                print(colors.green + "\033[34m{}\033[32m new trades detected for \033[34m{}\033[32m within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades) + colors.reset)
+                print(colors.green + "\033[36m{}\033[32m new trades detected for \033[36m{}\033[32m within the last {} seconds! New Amount Of Total Trades at {}".format(difference, details['name'], timer, newTrades) + colors.reset)
                 #pprint("New Amount Of Total Trades at {}".format(newTrades))
                 new = True
                 time.sleep(0.5)
