@@ -22,6 +22,7 @@ jobs:
         python3 setup.py install
     - name: build with pyinstaller
       run: |
+        cd ${{ github.workspace }}
         pipenv install --system
         pyinstaller -F --icon=icon.ico src\main.py
         dir
