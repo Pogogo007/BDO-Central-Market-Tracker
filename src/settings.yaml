@@ -1,5 +1,7 @@
 headerToken: 
 formToken: 
+#price or trades
+mode: trades
 #In Seconds
 delay: 60
 #NA or EU
