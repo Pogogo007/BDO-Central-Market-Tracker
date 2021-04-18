@@ -107,7 +107,7 @@ def updateTrades():
                     difference, details['name'], timer, newTrades) + colors.reset)
                 #pprint("New Amount Of Total Trades at {}".format(newTrades))
                 new = True
-                time.sleep(0.5)
+                time.sleep(0.2)
     if(new == False):
         print(colors.red + "No New Trades Found Within The Last {} Seconds".format(timer) + colors.reset)
 
