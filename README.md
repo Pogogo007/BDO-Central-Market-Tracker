@@ -2,6 +2,7 @@
 A BDO tool that allows you to monitor trades for central marketplace items.
 Was intended to be used in conjunction with bdowhaletracker.com but i now know that it may have more applications.
 Keep In Mind That PA may rate limit you or temp ban you from accessing the website if you do too many requests in a short period of time.
+Due To the Writing in the ToS Pearl Abyss has the right to ban you permanantly at any time for using this tool. The odds of this are low if you dont abuse this tool.
 This Tool works only in the NA and EU Servers for now.
 
 ## Setup

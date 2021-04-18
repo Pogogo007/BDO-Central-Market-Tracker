@@ -99,7 +99,7 @@ def updateTrades():
             details = content[0]
             newTrades = details['totalTradeCount']
             if newTrades == currentIDTr:
-                time.sleep(0.5)
+                time.sleep(0.3)
             else:
                 difference = newTrades - currentIDTr
                 currentAmount[id] = newTrades
@@ -107,7 +107,7 @@ def updateTrades():
                     difference, details['name'], timer, newTrades) + colors.reset)
                 #pprint("New Amount Of Total Trades at {}".format(newTrades))
                 new = True
-                time.sleep(0.2)
+                time.sleep(0.3)
     if(new == False):
         print(colors.red + "No New Trades Found Within The Last {} Seconds".format(timer) + colors.reset)
 
@@ -136,7 +136,7 @@ def updatePrice():
             details = content[0]
             newPrice = details['pricePerOne']
             if newPrice == currentIDPr:
-                time.sleep(0.5)
+                time.sleep(0.3)
             else:
                 #difference = newPrice - currentIDPr
                 currentAmount[id] = newPrice
@@ -144,7 +144,7 @@ def updatePrice():
                     details['name'], timer, newPrice) + colors.reset)
                 #pprint("New Amount Of Total Trades at {}".format(newTrades))
                 new = True
-                time.sleep(0.5)
+                time.sleep(0.3)
     if(new == False):
         print(colors.red + "No Price Change Found Within The Last {} Seconds".format(timer) + colors.reset)
 
@@ -168,7 +168,7 @@ def startupTrades():
             print(colors.green + "Amount Of Total Trades {}".format(
                 details['totalTradeCount']) + colors.reset)
             currentAmount[id] = details['totalTradeCount']
-            time.sleep(0.5)
+            time.sleep(0.3)
     startup = False
     print(colors.yellow + "Startup Done" + colors.reset)
     
@@ -192,7 +192,7 @@ def startupPrice():
             print(colors.green + "Current Price {}".format(
                 details['pricePerOne']) + colors.reset)
             currentAmount[id] = details['pricePerOne']
-            time.sleep(0.5)
+            time.sleep(0.3)
     startup = False
     print(colors.yellow + "Startup Done" + colors.reset)
 
