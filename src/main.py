@@ -148,6 +148,7 @@ def updatePrice():
     if(new == False):
         print(colors.red + "No Price Change Found Within The Last {} Seconds".format(timer) + colors.reset)
 
+
 def startupTrades():
     for id in itemIDS:
         cookies = {"__RequestVerificationToken": headerToken}
@@ -171,7 +172,8 @@ def startupTrades():
             time.sleep(0.3)
     startup = False
     print(colors.yellow + "Startup Done" + colors.reset)
-    
+
+
 def startupPrice():
     for id in itemIDS:
         cookies = {"__RequestVerificationToken": headerToken}
@@ -196,6 +198,7 @@ def startupPrice():
     startup = False
     print(colors.yellow + "Startup Done" + colors.reset)
 
+
 print(colors.cyan + "Press Ctrl-C to Stop at Any Time" + colors.reset)
 
 if startup == True:
@@ -211,10 +214,9 @@ if startup == True:
     elif(mode == 'price'):
         startupPrice()
         while loop_forever:
-                updatePrice()
-                try:
-                    time.sleep(timer)
-                except KeyboardInterrupt:
-                    loop_forever = False
-                    print("Keyboard Interupt Triggered Exiting...")
-
+            updatePrice()
+            try:
+                time.sleep(timer)
+            except KeyboardInterrupt:
+                loop_forever = False
+                print("Keyboard Interupt Triggered Exiting...")
