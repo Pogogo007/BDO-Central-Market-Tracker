@@ -6,7 +6,6 @@ import yaml
 import sys
 import os
 import lxml
-import asyncio
 from lxml import html
 from datetime import datetime
 from colorama import init
