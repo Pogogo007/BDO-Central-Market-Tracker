@@ -78,7 +78,6 @@ def cleanUp(array):
             to_remove.append(item)
     for rmv in to_remove:
         array.pop(rmv)
-    pprint("Removed {} Items".format(len(to_remove)))
     return array
 
 
